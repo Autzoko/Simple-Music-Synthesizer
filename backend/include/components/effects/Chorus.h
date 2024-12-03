@@ -1,14 +1,15 @@
 #ifndef CHORUS_H
 #define CHORUS_H
 
+#include "Effect.h"
 #include <vector>
 #include <cmath>
 
-class ChorusEffect {
+class ChorusEffect : public Effct {
 public:
     ChorusEffect(double depth = 0.002, double rate = 1.5, unsigned int sampleRate = 44100);
 
-    void apply(std::vector<double>& samples);
+    void apply(std::vector<double>& samples) override;
 
     void setDepth(double depth);
     void setRate(double rate);
