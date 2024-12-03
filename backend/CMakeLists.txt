@@ -12,6 +12,7 @@ include_directories(
     ${PROJECT_SOURCE_DIR}/include/components/effects
     ${PROJECT_SOURCE_DIR}/include/utils
     ${PROJECT_SOURCE_DIR}/lib/RtAudio
+    ${PROJECT_SOURCE_DIR}/lib/RtAudio/include
 )
 
 file(GLOB COMPONENT_SOURCES
@@ -26,10 +27,16 @@ file(GLOB EFFECTS_SOURCES
     ${PROJECT_SOURCE_DIR}/src/utils/*.cpp
 )
 
+file(GLOB ASIO_SOURCES
+    ${PROJECT_SOURCE_DIR}/lib/RtAudio/include/*.cpp
+)
+
+
 set(SOURCES
     ${COMPONENT_SOURCES}
     ${UTIL_SOURCES}
     ${EFFECTS_SOURCES}
+    ${ASIO_SOURCES}
     ${PROJECT_SOURCE_DIR}/src/Synthesizer.cpp
     ${PROJECT_SOURCE_DIR}/lib/RtAudio/RtAudio.cpp
     ${PROJECT_SOURCE_DIR}/main.cpp
@@ -38,6 +45,7 @@ set(SOURCES
 add_executable(synth_test ${SOURCES})
 
 if (WIN32)
+    add_definitions(-D__WINDOWS_ASIO__)
     target_link_libraries(synth_test winmm -lwinpthread)
 elseif (APPLE)
     find_library(COREAUDIO_LIBRARY CoreAudio)
