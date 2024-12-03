@@ -7,7 +7,9 @@ class DelayEffect {
 public:
     DelayEffect(double delayTime = 0.5, double feedback = 0.5, double mix = 0.5, unsigned int sampleRate = 44100);
     void apply(std::vector<double>& data);
-    void setParameters(double delayTime, double feedback, double mix);
+    void setDelayTime(double delayTime);
+    void setFeedback(double feedback);
+    void setMix(double mix);
 
 private:
     double delayTime;

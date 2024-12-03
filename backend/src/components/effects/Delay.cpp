@@ -6,12 +6,18 @@ DelayEffect::DelayEffect(double delayTime, double feedback, double mix, unsigned
         delayBuffer.resize(delaySamples, 0.0);
 }
 
-void DelayEffect::setParameters(double delayTime, double feedback, double mix) {
+void DelayEffect::setDelayTime(double delayTime) {
     this->delayTime = delayTime;
-    this->feedback = feedback;
-    this->mix = mix;
     delaySamples = static_cast<unsigned int>(delayTime * sampleRate);
     delayBuffer.resize(delaySamples, 0.0);
+}
+
+void DelayEffect::setFeedback(double feedback) {
+    this->feedback = feedback;
+}
+
+void DelayEffect::setMix(double mix) {
+    this->mix = mix;
 }
 
 void DelayEffect::apply(std::vector<double>& data) {
