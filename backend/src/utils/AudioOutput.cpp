@@ -7,10 +7,10 @@ AudioOutput::AudioOutput(unsigned int sampleRate, unsigned int bufferFrames)
         parameters.nChannels = 1;
         parameters.firstChannel = 0;
 
-        unsigned int sampleRate = this->sampleRate;
-        unsigned int bufferFrames = this->bufferFrames;
+        unsigned int _sampleRate = this->sampleRate;
+        unsigned int _bufferFrames = this->bufferFrames;
 
-        dac.openStream(&parameters, nullptr, RTAUDIO_FLOAT64, sampleRate, &bufferFrames, &AudioOutput::audioCallback, this);
+        dac.openStream(&parameters, nullptr, RTAUDIO_FLOAT64, _sampleRate, &_bufferFrames, &AudioOutput::audioCallback, this);
 }
 
 AudioOutput::~AudioOutput() {
@@ -34,8 +34,8 @@ void AudioOutput::stop() {
 }
 
 int AudioOutput::audioCallback(void* outputBuffer, void* /*inputBuffer*/, unsigned int nBufferFrames,
-    double /*streamTime*/, RtAudioStreamStatus /*status*/, void* UserData) {
-        AudioOutput* audio = static_cast<AudioOutput*>(UserData);
+    double /*streamTime*/, RtAudioStreamStatus /*status*/, void* userData) {
+        AudioOutput* audio = static_cast<AudioOutput*>(userData);
         double* buffer = static_cast<double*>(outputBuffer);
 
         for (unsigned int i = 0; i < nBufferFrames; ++i) {

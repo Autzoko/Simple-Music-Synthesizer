@@ -21,7 +21,7 @@ private:
     bool isPlaying;
 
     static int audioCallback(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime,
-        RtAudioStreamStatus status, void* UserData);
+        RtAudioStreamStatus status, void* userData);
 };
 
 #endif
