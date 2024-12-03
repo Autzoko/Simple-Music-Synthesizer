@@ -34,7 +34,11 @@ void AudioOutput::stop() {
 }
 
 int AudioOutput::audioCallback(void* outputBuffer, void* /*inputBuffer*/, unsigned int nBufferFrames,
-    double /*streamTime*/, RtAudioStreamStatus /*status*/, void* userData) {
+    double /*streamTime*/, RtAudioStreamStatus status, void* userData) {
+        if (status) {
+            std::cerr << "Stream underflow detected!" << std::endl;
+        }
+
         AudioOutput* audio = static_cast<AudioOutput*>(userData);
         double* buffer = static_cast<double*>(outputBuffer);
 
