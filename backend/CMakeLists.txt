@@ -45,8 +45,8 @@ set(SOURCES
 add_executable(synth_test ${SOURCES})
 
 if (WIN32)
-    add_definitions(-D__WINDOWS_ASIO__)
-    target_link_libraries(synth_test winmm -lwinpthread)
+    add_definitions(-D__WINDOWS_DS__)
+    target_link_libraries(synth_test winmm dsound -lwinpthread)
 elseif (APPLE)
     find_library(COREAUDIO_LIBRARY CoreAudio)
     find_library(COREFOUNDATION_LIBRARY CoreFoundation)
