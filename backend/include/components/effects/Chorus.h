@@ -5,7 +5,7 @@
 #include <vector>
 #include <cmath>
 
-class ChorusEffect : public Effct {
+class ChorusEffect : public Effect {
 public:
     ChorusEffect(double depth = 0.002, double rate = 1.5, unsigned int sampleRate = 44100);
 

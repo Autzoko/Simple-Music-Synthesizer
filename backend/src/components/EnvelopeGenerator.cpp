@@ -1,35 +1,14 @@
 #include "EnvelopeGenerator.h"
 
 EnvelopeGenerator::EnvelopeGenerator(double attack, double decay, double sustain, double release, unsigned int sampleRate)
-    : attack(attack), decay(decay), sustain(sustain), release(release), sampleRate(sampleRate) {}
+    : attack(attack), decay(decay), sustain(sustain), release(release), sampleRate(sampleRate), state(State::Idle), currentLevel(0.0), currentSample(0) {
+        calculateSegmentLength();
+}
 
-std::vector<double> EnvelopeGenerator::generate(double duration) {
-    unsigned int totalSamples = static_cast<unsigned int>(sampleRate * duration);
-    std::vector<double> envelope(totalSamples, 0.0);
-
-    unsigned int attackSamples = static_cast<unsigned int>(attack * sampleRate);
-    unsigned int decaySamples = static_cast<unsigned int>(decay * sampleRate);
-    unsigned int releaseSamples = static_cast<unsigned int>(release * sampleRate);
-    unsigned int sustainSamples = totalSamples - attackSamples - decaySamples - releaseSamples;
-
-    if (sustainSamples < 0) {
-        sustainSamples = 0;
-    }
-
-    for (unsigned int i = 0; i < attackSamples && i < totalSamples; ++i) {
-        envelope[i] = static_cast<double>(i) / attackSamples;
-    }
-    for (unsigned int i = attackSamples; i < attackSamples + decaySamples && i < totalSamples; ++i) {
-        envelope[i] = 1.0 - ((1.0 - sustain) * (static_cast<double>(i - attackSamples) / decaySamples));
-    }
-    for (unsigned int i = attackSamples + decaySamples; i < attackSamples + decaySamples + releaseSamples && i < totalSamples; ++i) {
-        envelope[i] = sustain;
-    }
-    for (unsigned int i = totalSamples - releaseSamples; i < totalSamples; ++i) {
-        envelope[i] = sustain * (1.0 - static_cast<double>(i - (totalSamples - releaseSamples)) / releaseSamples);
-    }
-
-    return envelope;
+void EnvelopeGenerator::calculateSegmentLength() {
+    attackSamples = static_cast<unsigned int>(attack * sampleRate);
+    decaySamples = static_cast<unsigned int>(decay * sampleRate);
+    releaseSamples = static_cast<unsigned int>(release * sampleRate);
 }
 
 void EnvelopeGenerator::setADSR(double attack, double decay, double sustain, double release) {
@@ -37,4 +16,62 @@ void EnvelopeGenerator::setADSR(double attack, double decay, double sustain, dou
     this->decay = decay;
     this->sustain = sustain;
     this->release = release;
+    calculateSegmentLength();
+}
+
+void EnvelopeGenerator::trigger() {
+    state = State::Attack;
+    currentLevel = 0.0;
+    currentSample = 0;
+}
+
+void EnvelopeGenerator::doRelease() {
+    state = State::Release;
+    currentSample = 0;
+}
+
+bool EnvelopeGenerator::isFinished() const {
+    return state == State::Idle;
+}
+
+std::vector<double> EnvelopeGenerator::generate(double duration) {
+    size_t numSamples = static_cast<size_t>(duration * sampleRate);
+    std::vector<double> envelope(numSamples);
+
+    for (size_t i = 0; i < numSamples; ++i) {
+        switch (state) {
+            case State::Idle:
+                envelope[i] = 0.0;
+                break;
+            case State::Attack:
+                currentLevel += 1.0 / attackSamples;
+                if (currentSample++ >= attackSamples) {
+                    currentLevel = 1.0;
+                    state = State::Decay;
+                    currentSample = 0;
+                }
+                envelope[i] = currentLevel;
+                break;
+            case State::Decay:
+                currentLevel -= (1.0 - sustain) / decaySamples;
+                if (currentSample++ >= decaySamples) {
+                    currentLevel = sustain;
+                    state = State::Sustain;
+                }
+                envelope[i] = currentLevel;
+                break;
+            case State::Sustain:
+                envelope[i] = sustain;
+                break;
+            case State::Release:
+                currentLevel -= sustain / releaseSamples;
+                if (currentSample++ >= releaseSamples) {
+                    currentLevel = 0.0;
+                    state = State::Idle;
+                }
+                envelope[i] = std::max(currentLevel, 0.0);
+                break;
+        }
+    }
+    return envelope;
 }

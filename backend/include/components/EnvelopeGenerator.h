@@ -10,12 +10,25 @@ public:
 
     void setADSR(double attack, double decay, double sustain, double release);
 
+    void trigger();
+    void doRelease();
+    bool isFinished() const;
+
 private:
     double attack;
     double decay;
     double sustain;
     double release;
     unsigned int sampleRate;
+
+    enum class State {Idle, Attack, Decay, Sustain, Release} state;
+    double currentLevel;
+    unsigned int currentSample;
+    unsigned int attackSamples;
+    unsigned int decaySamples;
+    unsigned int releaseSamples;
+
+    void calculateSegmentLength();
 };
 
 #endif //ENVELOPEGENERATOR_H

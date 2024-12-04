@@ -4,7 +4,7 @@
 #include "Effect.h"
 #include <vector>
 
-class ReverbEffect : public Effect{
+class ReverbEffect : public Effect {
 public:
     ReverbEffect(double decay = 0.5, double mix = 0.5, unsigned int sampleRate = 44100);
 
