@@ -11,6 +11,6 @@ double Note::getMainFrequency() const {
     return mainFrequency;
 }
 
-const std::vector<double>& Note::getSubFrequencies() const {
-    return subFrequencies;
+const double& Note::getSubFrequencies(unsigned int index) const {
+    return subFrequencies[index];
 }

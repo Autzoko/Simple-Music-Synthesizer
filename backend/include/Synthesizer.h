@@ -23,26 +23,27 @@ public:
     void setOscillatorWaveform(size_t oscillatorIndex, WaveformType wavform);
     void setOscillatorWeight(size_t oscillatorIndex, double weight);
     void setOscillatorDetune(size_t oscillatorIndex, double detune);
-    void setEnvelope(EnvelopeGenerator* envelope);
+    void setEnvelope(std::shared_ptr<EnvelopeGenerator> envelope);
     void setFilter(Filter* filter);
     void addEffect(std::shared_ptr<Effect> effect);
 
 private:
     struct Voice {
         struct OscillatorConfig {
-            Oscillator oscillator;
+            std::shared_ptr<Oscillator> oscillator;
             double weight;
             double detune;
-            OscillatorConfig(WaveformType waveform, double amplitude, double frequency, double w = 1.0, double d = 0.0) : oscillator(oscillator), weight(w), detune(d) {}
+            OscillatorConfig(WaveformType waveform, double frequency, double amplitude, double w = 1.0, double d = 0.0, unsigned int sampleRate = 44100)
+                : oscillator(std::make_shared<Oscillator>(waveform, frequency, amplitude, 0.0, sampleRate)),
+                weight(w), detune(d) {}
         };
 
         std::vector<OscillatorConfig> oscillators;
-        EnvelopeGenerator* envelope;
+        std::shared_ptr<EnvelopeGenerator> envelope;
         bool active;
         double mainFrequency;
 
-        Voice(unsigned int numOscillators, EnvelopeGenerator* env, unsigned int sampleRate);
-        ~Voice();
+        Voice(unsigned int numOscillators, std::shared_ptr<EnvelopeGenerator> env, unsigned int sampleRate);
     };
 
     unsigned int sampleRate;

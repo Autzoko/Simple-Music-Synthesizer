@@ -1,10 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
 project(SynthesizerBackend)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message("Debug mode enabled")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -DDEBUG")
+else()
+    message("Release mode enabled")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
+endif()
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include

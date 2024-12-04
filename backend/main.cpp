@@ -1,109 +1,59 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <cstdint>
-#include "RtAudio.h"
 #include "Synthesizer.h"
-#include "AudioOutput.h"
+#include "Note.h"
+#include "Key.h"
+#include "Functional.h"
+#include "Chorus.h"
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <cmath>
 
-void writeWavFile(const std::string &filename, const std::vector<double> &samples, 
-                  unsigned int sampleRate, unsigned int numChannels) {
-    // 打开文件
-    std::ofstream file(filename, std::ios::binary);
-    if (!file) {
-        std::cerr << "Failed to open file for writing: " << filename << std::endl;
-        return;
-    }
-
-    // WAV 文件头
-    uint32_t fileSize = 36 + samples.size() * sizeof(int16_t) * numChannels;
-    uint32_t byteRate = sampleRate * numChannels * sizeof(int16_t);
-    uint16_t blockAlign = numChannels * sizeof(int16_t);
-    uint16_t bitsPerSample = 16;
-
-    // RIFF Chunk
-    file.write("RIFF", 4);
-    uint32_t chunkSize = fileSize - 8;
-    file.write(reinterpret_cast<const char *>(&chunkSize), 4);
-    file.write("WAVE", 4);
-
-    // Format Subchunk
-    file.write("fmt ", 4);
-    uint32_t subChunk1Size = 16;
-    file.write(reinterpret_cast<const char *>(&subChunk1Size), 4);
-    uint16_t audioFormat = 1; // PCM
-    file.write(reinterpret_cast<const char *>(&audioFormat), 2);
-    file.write(reinterpret_cast<const char *>(&numChannels), 2);
-    file.write(reinterpret_cast<const char *>(&sampleRate), 4);
-    file.write(reinterpret_cast<const char *>(&byteRate), 4);
-    file.write(reinterpret_cast<const char *>(&blockAlign), 2);
-    file.write(reinterpret_cast<const char *>(&bitsPerSample), 2);
-
-    // Data Subchunk
-    file.write("data", 4);
-    uint32_t subChunk2Size = samples.size() * sizeof(int16_t) * numChannels;
-    file.write(reinterpret_cast<const char *>(&subChunk2Size), 4);
-
-    // 写入音频数据
-    for (const auto &sample : samples) {
-        int16_t intSample = static_cast<int16_t>(std::clamp(sample, -1.0, 1.0) * 32767);
-        file.write(reinterpret_cast<const char *>(&intSample), sizeof(int16_t));
-    }
-
-    file.close();
-    std::cout << "WAV file written to " << filename << std::endl;
-}
+struct NoteEvent {
+    std::string key;   // 音符
+    double startTime;  // 起始时间（秒）
+    double duration;   // 持续时间（秒）
+};
 
 int main() {
-    unsigned int sampleRate = 44100;
-    double duration = 2.0;
+    const unsigned int sampleRate = 44100;
+    const double totalDuration = 5.0; // 总时长 5 秒
 
+    // 创建合成器
     Synthesizer synth(sampleRate);
-    
-    Oscillator* osc1 = new Oscillator(
-        WaveformType::SAWTOOTH,
-        440.0,
-        1.0,
-        0.0,
-        sampleRate
-    );
-    synth.addOscillator(osc1);
 
-    EnvelopeGenerator* env = new EnvelopeGenerator(
-        0.01,
-        0.1,
-        0.8,
-        0.5,
-        sampleRate
-    );
-    synth.setEnvelope(env);
+    // 音符事件队列
+    std::vector<NoteEvent> events = {
+        {"C4", 0.0, 2.0}, // C4 从 0 秒开始，持续 2 秒
+        {"E4", 1.0, 2.0}, // E4 从 1 秒开始，持续 2 秒（部分重叠）
+        {"G4", 2.0, 2.0}, // G4 从 2 秒开始，持续 2 秒（部分重叠）
+        {"C4", 2.5, 1.5}  // C4 从 2.5 秒开始，持续 1.5 秒（完全重叠）
+    };
 
-    Filter* filter = new Filter(
-        FilterType::LOWPASS,
-        1000.0,
-        0.7071,
-        sampleRate
-    );
-    synth.setFilter(filter);
+    // 创建音频缓冲区
+    std::vector<double> audioBuffer(static_cast<size_t>(totalDuration * sampleRate), 0.0);
 
-    DelayEffect* delay = new DelayEffect(
-        0.5,
-        0.5,
-        0.3
-    );
-    synth.addEffect(delay);
+    // 按时间线合成音频
+    for (const auto& event : events) {
+        Note note = getNoteFromKey(event.key);
+        synth.noteOn(note, 1.0);
 
-    std::vector<double> samples = synth.noteOn(440.0, duration);
+        unsigned int startFrame = static_cast<unsigned int>(event.startTime * sampleRate);
+        unsigned int numFrames = static_cast<unsigned int>(event.duration * sampleRate);
 
-    AudioOutput audioOutput(sampleRate);
-    audioOutput.play(samples);
+        std::vector<double> tempBuffer(numFrames, 0.0);
+        synth.generateAudio(tempBuffer, numFrames);
 
-    writeWavFile("output.wav", samples, sampleRate, 1);
+        for (size_t i = 0; i < numFrames; ++i) {
+            if (startFrame + i < audioBuffer.size()) {
+                audioBuffer[startFrame + i] += tempBuffer[i];
+            }
+        }
 
-    delete osc1;
-    delete env;
-    delete filter;
-    delete delay;
+        synth.noteOff(note);
+    }
+
+    // 写入 WAV 文件
+    writeWavFile("overlapping_notes.wav", audioBuffer, sampleRate);
 
     return 0;
 }

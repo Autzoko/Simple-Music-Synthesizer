@@ -6,13 +6,10 @@ Oscillator::Oscillator(WaveformType waveform, double frequency, double amplitude
     : waveform(waveform), frequency(frequency), amplitude(amplitude), phase(phase), sampleRate(sampleRate) {}
 
 
-std::vector<double> Oscillator::generate(double duration) {
-    unsigned int totalSamples = static_cast<unsigned int>(sampleRate * duration);
+std::vector<double> Oscillator::generate(unsigned int numSamples) {
+    unsigned int totalSamples = numSamples;
 
     std::vector<double> wave(totalSamples);
-
-    std::default_random_engine generator;
-    std::uniform_real_distribution<double> distribution(-1.0, 1.0);
 
     for (unsigned int i = 0; i < totalSamples; ++i) {
         double t = static_cast<double>(i) / sampleRate;
@@ -36,9 +33,12 @@ std::vector<double> Oscillator::generate(double duration) {
                 break;
 
             case WaveformType::NOISE:
+                std::default_random_engine generator;
+                std::uniform_real_distribution<double> distribution(-1.0, 1.0);
                 value = amplitude * distribution(generator);
                 break;
         }
+        //printf("%f\n", value);
         wave[i] = value;
     }
     return wave;

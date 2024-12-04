@@ -10,7 +10,7 @@ public:
 
     const std::string& getName() const;
     double getMainFrequency() const;
-    const std::vector<double>& getSubFrequencies() const;
+    const double& getSubFrequencies(unsigned int index) const;
 
 private:
     std::string name;
