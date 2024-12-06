@@ -100,3 +100,31 @@ void SynthesizerUI::keyPressEvent(QKeyEvent *event) {
         synthesizer->noteOn(getNoteFromKey(note.toStdString()), 1.0);
     }
 }
+
+void SynthesizerUI::updateOscillatorWaveform(int index) {
+    printf("Update oscillator index\n");
+}
+
+void SynthesizerUI::updateOscillatorWeight(int index) {
+    printf("update weight function\n");
+}
+
+void SynthesizerUI::updateFilterParams() {
+    printf("Update filter params\n");
+}
+
+void SynthesizerUI::updateEnvelopeParams() {
+    printf("Update envelope params\n");
+}
+
+void SynthesizerUI::addEffect() {
+    printf("Add effect\n");
+}
+
+void SynthesizerUI::removeEffect() {
+    printf("Remove effect");
+}
+
+void SynthesizerUI::updateEffectParams() {
+    printf("Update effect params\n");
+}
