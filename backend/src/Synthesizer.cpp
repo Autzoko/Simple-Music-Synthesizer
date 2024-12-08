@@ -130,3 +130,39 @@ void Synthesizer::addEffect(std::shared_ptr<Effect> effect) {
 
 
 
+NewSynthesizer::NewSynthesizer(const string noteMapFile, unsigned int sampleRate)
+    : sampleRate(sampleRate) {
+        // read json files
+        this->oscillators = {};
+        this->envelope = nullptr;
+        this->filter = nullptr;
+        this->effectChain = {};
+}
+
+std::vector<Oscillator*> NewSynthesizer::initializeOscillators() {
+    Oscillator* osc1 = new Oscillator();
+    Oscillator* osc2 = new Oscillator();
+    Oscillator* osc3 = new Oscillator();
+    Oscillator* osc4 = new Oscillator();
+
+    this->oscillators = {osc1, osc2, osc3, osc4};
+
+    return this->oscillators;
+}
+
+Filter* NewSynthesizer::initializeFilter() {
+    Filter* filter = new Filter();
+
+    this->filter = filter;
+
+    return this->filter;
+}
+
+EnvelopeGenerator* NewSynthesizer::initializeEnvelope() {
+    EnvelopeGenerator* envelope = new EnvelopeGenerator();
+
+    this->envelope = envelope;
+
+    return this->envelope;
+}
+

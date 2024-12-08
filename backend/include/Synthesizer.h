@@ -27,6 +27,11 @@ public:
     void setFilter(Filter* filter);
     void addEffect(std::shared_ptr<Effect> effect);
 
+    Filter* getFilter();
+    std::shared_ptr<Effect> getEffect(unsigned int index);
+
+
+
 private:
     struct Voice {
         struct OscillatorConfig {
@@ -53,6 +58,35 @@ private:
     std::mutex synthMutex;
 
     void assignFrequencies(Voice& voice, const Note& note);
+};
+
+class NewSynthesizer {
+public:
+    NewSynthesizer(const string noteMapFile, unsigned int sampleRate = 44100);
+    ~NewSynthesizer();
+
+    std::vector<Oscillator*> initializeOscillators();
+    EnvelopeGenerator* initializeEnvelope();
+    Filter* initializeFilter();
+    void initializeEffectChain();
+
+    void addEffect(Effect* effect);
+
+    void noteOn(const Note& note, double velocity = 1.0);
+    void noteOff(const Note& note);
+
+    void generateAudio(std::vector<double>& outputBuffer, unsigned int numFrames);
+
+private:
+    unsigned int sampleRate;
+    std::unordered_map<unsigned int, std::vector<double>> noteFrequencyMap;
+    std::vector<Oscillator*> oscillators;
+    EnvelopeGenerator* envelope;
+    Filter* filter;
+    std::vector<Effect*> effectChain;
+    std::mutex synthMutex;
+
+    void setFrequencyMap(); 
 };
 
 #endif

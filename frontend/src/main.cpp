@@ -1,11 +1,23 @@
-#include <QApplication>
 #include "SynthesizerUI.h"
 
-int main(int argc, char *argv[]) {
-    QApplication app(argc, argv);
+#include <QApplication>
+#include <QLocale>
+#include <QTranslator>
 
-    SynthesizerUI ui;
-    ui.show();
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
 
-    return app.exec();
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "SynthesizerUI_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+            break;
+        }
+    }
+    SynthesizerUI w;
+    w.show();
+    return a.exec();
 }

@@ -6,11 +6,19 @@ Filter::Filter(FilterType type, double cutoff, double resonance, unsigned int sa
         calculateCoefficients();
 }
 
-void Filter::setParameters(FilterType type, double cutoff, double resonance) {
-    this->type = type;
-    this->cutoff = cutoff;
-    this->resonance = resonance;
 
+void Filter::setFilterType(FilterType type) {
+    this->type = type;
+    calculateCoefficients();
+}
+
+void Filter::setCutoff(double cutoff) {
+    this->cutoff = cutoff;
+    calculateCoefficients();
+}
+
+void Filter::setResonance(double resonance) {
+    this->resonance = resonance;
     calculateCoefficients();
 }
 

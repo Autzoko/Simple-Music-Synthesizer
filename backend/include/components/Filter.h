@@ -13,7 +13,9 @@ class Filter {
 public:
     Filter(FilterType type = FilterType::LOWPASS, double cutoff = 1000.0, double resonance = 1.0, unsigned int sampleRate = 44100);
     void apply(std::vector<double>& data);
-    void setParameters(FilterType type, double cutoff, double resonance);
+    void setFilterType(FilterType type);
+    void setCutoff(double cutoff);
+    void setResonance(double resonance);
 
 private:
     FilterType type;
