@@ -113,56 +113,54 @@ void Synthesizer::setOscillatorDetune(size_t oscillatorIndex, double detune) {
     }
 }
 
+Oscillator& Synthesizer::getOscillator(size_t oscillatorIndex) {
+    if (oscillatorIndex >= voices[0].oscillators.size()) {
+        throw std::out_of_range("Invalid oscillator index");
+    }
+    return *voices[0].oscillators[oscillatorIndex].oscillator;
+}
+
+const Oscillator& Synthesizer::getOscillator(size_t oscillatorIndex) const {
+    if (oscillatorIndex >= voices[0].oscillators.size()) {
+        throw std::out_of_range("Invalid oscillator index");
+    }
+    return *voices[0].oscillators[oscillatorIndex].oscillator;
+}
+
 void Synthesizer::setEnvelope(std::shared_ptr<EnvelopeGenerator> envelope) {
     for (auto& voice : voices) {
         voice.envelope = envelope;
     }
 }
 
+std::shared_ptr<EnvelopeGenerator> Synthesizer::getEnvelope() {
+    if (!voices.empty()) {
+        return voices[0].envelope;
+    }
+    return nullptr;
+}
+
 void Synthesizer::setFilter(Filter* filter) {
     this->filter = filter;
+}
+
+Filter* Synthesizer::getFilter() {
+    return filter;
 }
 
 void Synthesizer::addEffect(std::shared_ptr<Effect> effect) {
     effects.push_back(effect);
 }
 
-
-
-
-NewSynthesizer::NewSynthesizer(const string noteMapFile, unsigned int sampleRate)
-    : sampleRate(sampleRate) {
-        // read json files
-        this->oscillators = {};
-        this->envelope = nullptr;
-        this->filter = nullptr;
-        this->effectChain = {};
+void Synthesizer::removeEffect(size_t index) {
+    std::lock_guard<std::mutex> lock(synthMutex);
+    if (index < effects.size()) {
+        effects.erase(effects.begin() + index);
+    }
 }
 
-std::vector<Oscillator*> NewSynthesizer::initializeOscillators() {
-    Oscillator* osc1 = new Oscillator();
-    Oscillator* osc2 = new Oscillator();
-    Oscillator* osc3 = new Oscillator();
-    Oscillator* osc4 = new Oscillator();
-
-    this->oscillators = {osc1, osc2, osc3, osc4};
-
-    return this->oscillators;
+std::shared_ptr<Effect> Synthesizer::getEffect(size_t index) {
+    if (index < effects.size()) {
+        return effects[index];
+    }
 }
-
-Filter* NewSynthesizer::initializeFilter() {
-    Filter* filter = new Filter();
-
-    this->filter = filter;
-
-    return this->filter;
-}
-
-EnvelopeGenerator* NewSynthesizer::initializeEnvelope() {
-    EnvelopeGenerator* envelope = new EnvelopeGenerator();
-
-    this->envelope = envelope;
-
-    return this->envelope;
-}
-

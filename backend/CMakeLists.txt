@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
+add_definitions(-DPA_USE_DS=1 -DPA_USE_WASAPI=1 -DPA_USE_ASIO=0 -DPA_USE_ALSA=0 -DPA_USE_OSS=0)
+
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     message("Debug mode enabled")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -DDEBUG")
@@ -34,13 +36,13 @@ file(GLOB_RECURSE SYNTH_BACKEND_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp
 )
 
-file(GLOB RTAUDIO_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/lib/RtAudio/*.cpp)
+file(GLOB_RECURSE PORTAUDIO_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/src/*.c)
 
 add_library(
     backend STATIC
     ${SYNTH_BACKEND_HEADERS}
     ${SYNTH_BACKEND_SOURCES}
-    ${RTAUDIO_SOURCES}
+    ${PORTAUDIO_SOURCES}
 )
 
 target_include_directories(
@@ -49,15 +51,16 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/components
     ${CMAKE_CURRENT_SOURCE_DIR}/include/components/effects
     ${CMAKE_CURRENT_SOURCE_DIR}/include/utils
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/RtAudio
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/RtAudio/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/include
 )
 
 target_compile_features(backend PUBLIC cxx_std_20)
 
+
+
 if (WIN32)
-    add_definitions(-D__WINDOWS_DS__)
     target_link_libraries(backend winmm dsound -lwinpthread)
+    #add_definitions(-D__WINDOWS_DS__)
 elseif (APPLE)
     find_library(COREAUDIO_LIBRARY CoreAudio)
     find_library(COREFOUNDATION_LIBRARY CoreFoundation)

@@ -11,10 +11,23 @@ void EnvelopeGenerator::calculateSegmentLength() {
     releaseSamples = static_cast<unsigned int>(release * sampleRate);
 }
 
-void EnvelopeGenerator::setADSR(double attack, double decay, double sustain, double release) {
+
+void EnvelopeGenerator::setAttack(double attack) {
     this->attack = attack;
+    calculateSegmentLength();
+}
+
+void EnvelopeGenerator::setDecay(double decay) {
     this->decay = decay;
+    calculateSegmentLength();
+}
+
+void EnvelopeGenerator::setSustain(double sustain) {
     this->sustain = sustain;
+    calculateSegmentLength();
+}
+
+void EnvelopeGenerator::setRelease(double release) {
     this->release = release;
     calculateSegmentLength();
 }

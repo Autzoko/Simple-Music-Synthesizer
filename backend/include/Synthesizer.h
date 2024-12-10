@@ -23,14 +23,20 @@ public:
     void setOscillatorWaveform(size_t oscillatorIndex, WaveformType wavform);
     void setOscillatorWeight(size_t oscillatorIndex, double weight);
     void setOscillatorDetune(size_t oscillatorIndex, double detune);
+    Oscillator& getOscillator(size_t oscillatorIndex);
+    const Oscillator& getOscillator(size_t oscillatorIndex) const;
+
     void setEnvelope(std::shared_ptr<EnvelopeGenerator> envelope);
+    std::shared_ptr<EnvelopeGenerator> getEnvelope();
+
     void setFilter(Filter* filter);
-    void addEffect(std::shared_ptr<Effect> effect);
-
     Filter* getFilter();
+
+    void addEffect(std::shared_ptr<Effect> effect);
+    void removeEffect(size_t index);
+    std::shared_ptr<Effect> getEffect(size_t index);
+
     std::shared_ptr<Effect> getEffect(unsigned int index);
-
-
 
 private:
     struct Voice {
@@ -60,33 +66,6 @@ private:
     void assignFrequencies(Voice& voice, const Note& note);
 };
 
-class NewSynthesizer {
-public:
-    NewSynthesizer(const string noteMapFile, unsigned int sampleRate = 44100);
-    ~NewSynthesizer();
 
-    std::vector<Oscillator*> initializeOscillators();
-    EnvelopeGenerator* initializeEnvelope();
-    Filter* initializeFilter();
-    void initializeEffectChain();
-
-    void addEffect(Effect* effect);
-
-    void noteOn(const Note& note, double velocity = 1.0);
-    void noteOff(const Note& note);
-
-    void generateAudio(std::vector<double>& outputBuffer, unsigned int numFrames);
-
-private:
-    unsigned int sampleRate;
-    std::unordered_map<unsigned int, std::vector<double>> noteFrequencyMap;
-    std::vector<Oscillator*> oscillators;
-    EnvelopeGenerator* envelope;
-    Filter* filter;
-    std::vector<Effect*> effectChain;
-    std::mutex synthMutex;
-
-    void setFrequencyMap(); 
-};
 
 #endif

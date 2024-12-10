@@ -8,6 +8,8 @@ class Note {
 public:
     Note(const std::string& name, double mainFrequency, const std::vector<double>& subFrequencies);
 
+    Note() : name(""), mainFrequency(0.0), subFrequencies({}) {}
+
     const std::string& getName() const;
     double getMainFrequency() const;
     const double& getSubFrequencies(unsigned int index) const;

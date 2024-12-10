@@ -1,27 +1,27 @@
 #ifndef AUDIOOUTPUT_H
 #define AUDIOOUTPUT_H
 
+#include "portaudio.h"
+#include "Synthesizer.h"
+#include <memory>
 #include <vector>
-#include "RtAudio.h"
 
 class AudioOutput {
 public:
-    AudioOutput(unsigned int sampleRate = 44100, unsigned int bufferFrames = 256);
+    AudioOutput(Synthesizer& synth, unsigned int sampleRate = 44100, unsigned int bufferSize = 512);
     ~AudioOutput();
 
-    void play(const std::vector<double>& data);
+    void start();
     void stop();
 
 private:
-    RtAudio dac;
+    Synthesizer& synthesizer;
     unsigned int sampleRate;
-    unsigned int bufferFrames;
-    std::vector<double> buffer;
-    unsigned int bufferPosition;
-    bool isPlaying;
+    unsigned int bufferSize;
+    PaStream* stream;
 
-    static int audioCallback(void* outputBuffer, void* inputBuffer, unsigned int nBufferFrames, double streamTime,
-        RtAudioStreamStatus status, void* userData);
+    static int audioCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer,
+        const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userData);
 };
 
 #endif
