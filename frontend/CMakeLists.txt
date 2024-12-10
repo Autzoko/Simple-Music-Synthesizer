@@ -39,4 +39,5 @@ target_link_libraries(frontend PRIVATE backend Qt6::Gui Qt6::Core Qt6::Widgets w
 target_include_directories(frontend PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/backend/include
+    ${CMAKE_SOURCE_DIR}/backend/lib/PortAudio/include
 )

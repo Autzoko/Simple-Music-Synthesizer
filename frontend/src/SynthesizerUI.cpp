@@ -1,5 +1,6 @@
 #include "SynthesizerUI.h"
 #include <QDebug>
+#include <iostream>
 
 SynthesizerUI::SynthesizerUI(QWidget *parent) :
     QMainWindow(parent),
