@@ -5,6 +5,11 @@
 #include "ui_SynthesizerUI.h"
 #include <array>
 #include "Synthesizer.h"
+#include <QMap>
+#include <memory>
+#include "AudioOutput.h"
+#include "Note.h"
+#include <QKeyEvent>
 
 class SynthesizerUI : public QMainWindow {
     Q_OBJECT
@@ -13,9 +18,13 @@ public:
     explicit SynthesizerUI(QWidget *parent = nullptr);
     ~SynthesizerUI();
 
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
+
 private slots:
     // 波形
-    void onWaveformChanged(int id);
+    //void onWaveformChanged(int id);
 
     // 滤波器
     void onFilterTypeChanged(int id);
@@ -34,35 +43,43 @@ private slots:
     void onReleaseChanged(int value);
 
     // 效果器
-    void onChorusEnableChanged(bool enabled);
-    void onChorusDepthChanged(int value);
-    void onChorusRateChanged(int value);
+    // void onAddEffectButtonClicked();
+    // void onRemoveEffectButtonClicked();
 
-    void onReverbEnableChanged(bool enabled);
-    void onReverbDecayChanged(int value);
-    void onReverbMixChanged(int value);
+    // void onChorusEnableChanged(bool enabled);
+    // void onChorusDepthChanged(int value);
+    // void onChorusRateChanged(int value);
 
-    void onDistortionEnableChanged(bool enabled);
-    void onDistortionThresholdChanged(int value);
+    // void onReverbEnableChanged(bool enabled);
+    // void onReverbDecayChanged(int value);
+    // void onReverbMixChanged(int value);
 
-    void onEqEnableChanged(bool enabled);
-    void onEqGainChanged(int value);
+    // void onDistortionEnableChanged(bool enabled);
+    // void onDistortionThresholdChanged(int value);
 
-    void onPitchShifterEnableChanged(bool enabled);
-    void onPitchFactorChanged(int value);
+    // void onEqEnableChanged(bool enabled);
+    // void onEqGainChanged(int value);
 
-    void onDelayEnableChanged(bool enabled);
-    void onDelayTimeChanged(int value);
-    void onDelayFeedbackChanged(int value);
-    void onDelayMixChanged(int value);
+    // void onPitchShifterEnableChanged(bool enabled);
+    // void onPitchFactorChanged(int value);
 
-    void onTremoloEnableChanged(bool enabled);
-    void onTremoloDepthChanged(int value);
-    void onTremoloRateChanged(int value);
+    // void onDelayEnableChanged(bool enabled);
+    // void onDelayTimeChanged(int value);
+    // void onDelayFeedbackChanged(int value);
+    // void onDelayMixChanged(int value);
+
+    // void onTremoloEnableChanged(bool enabled);
+    // void onTremoloDepthChanged(int value);
+    // void onTremoloRateChanged(int value);
 
 private:
     Ui::SynthesizerUI *ui;
     std::shared_ptr<Synthesizer> synthesizer;
+    AudioOutput* audioPlayer;
+
+    QMap<int, Note> keyToNoteMapping;
+
+
 
     void setupConnections();
 };

@@ -34,7 +34,7 @@ add_executable(
     ${SOURCE_FILES}
 )
 
-target_link_libraries(frontend PRIVATE backend Qt6::Gui Qt6::Core Qt6::Widgets)
+target_link_libraries(frontend PRIVATE backend Qt6::Gui Qt6::Core Qt6::Widgets winmm dsound)
 
 target_include_directories(frontend PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include
