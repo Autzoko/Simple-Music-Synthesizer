@@ -12,15 +12,18 @@ void OscillatorControlPanel::setupUI() {
     // 主布局
     auto* mainLayout = new QVBoxLayout(this);
 
+    QGroupBox* oscillatorGroupBox = new QGroupBox("Oscillator" + QString::number(index + 1), this);
+    auto* oscillatorLayout = new QVBoxLayout(oscillatorGroupBox);
+
     // 旋钮布局
-    auto* knobLayout = new QHBoxLayout();
+    auto* knobLayout = new QVBoxLayout();
 
     // 权重旋钮
     QLabel* weightLabel = new QLabel("Weight", this);
     weightDial = new QDial(this);
     weightDial->setRange(0, 100);
     weightDial->setValue(100);
-    weightValueLabel = new QLabel("1.0", this);
+    weightValueLabel = new QLabel("1.00", this);
     weightValueLabel->setAlignment(Qt::AlignCenter);
 
     knobLayout->addWidget(weightLabel);
@@ -32,14 +35,14 @@ void OscillatorControlPanel::setupUI() {
     detuneDial = new QDial(this);
     detuneDial->setRange(0, 100);
     detuneDial->setValue(0);
-    detuneValueLabel = new QLabel("0.0", this);
+    detuneValueLabel = new QLabel("0.00", this);
     detuneValueLabel->setAlignment(Qt::AlignCenter);
     knobLayout->addWidget(detuneLabel);
     knobLayout->addWidget(detuneDial);
     knobLayout->addWidget(detuneValueLabel);
 
     // 将旋钮布局添加到主布局
-    mainLayout->addLayout(knobLayout);
+    oscillatorLayout->addLayout(knobLayout);
 
     // 波形选择布局
     auto* waveformLayout = new QVBoxLayout();
@@ -65,15 +68,16 @@ void OscillatorControlPanel::setupUI() {
     waveformLayout->addWidget(noiseButton);
 
     // 将波形选择布局添加到主布局
-    mainLayout->addLayout(waveformLayout);
+    oscillatorLayout->addLayout(waveformLayout);
+
+    oscillatorGroupBox->setStyleSheet("background-color: #f9f9f9;");
+
+    mainLayout->addWidget(oscillatorGroupBox);
 
     // 设置面板边框样式
     setStyleSheet(R"(
         QWidget {
-            border: 1px solid lightgray;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #f9f9f9;
+            padding: 5px;
         }
         QLabel {
             font-size: 12px;

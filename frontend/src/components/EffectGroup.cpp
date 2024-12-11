@@ -18,8 +18,6 @@ EffectGroup::EffectGroup(std::shared_ptr<Synthesizer> synthesizer, QWidget* pare
     // Optional: Add styling
     setStyleSheet(R"(
         QGroupBox {
-            border: 1px solid lightgray;
-            border-radius: 5px;
             padding: 10px;
         }
         QLabel {
@@ -27,8 +25,6 @@ EffectGroup::EffectGroup(std::shared_ptr<Synthesizer> synthesizer, QWidget* pare
             color: #333333;
         }
         QSlider {
-            background-color: #ffffff;
-            border: 1px solid lightgray;
             height: 20px;
         }
     )");

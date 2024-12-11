@@ -43,21 +43,21 @@ void SynthesizerUI::setupUI() {
     }
     QGroupBox* oscillatorGroup = new QGroupBox("Oscillators", centralWidget);
     oscillatorGroup->setLayout(oscillatorLayout);
-    oscillatorGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
+    oscillatorGroup->setStyleSheet("padding: 5px;");
 
     // 右上角：Envelope Panel
     envelopePanel = new EnvelopePanel(synthesizer, this);
     QGroupBox* envelopeGroup = new QGroupBox("Envelope", centralWidget);
     envelopeGroup->setLayout(new QVBoxLayout());
     envelopeGroup->layout()->addWidget(envelopePanel);
-    envelopeGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
+    envelopeGroup->setStyleSheet("padding: 5px;");
 
     // 右下角：Filter Panel
     filterPanel = new FilterPanel(synthesizer, this);
     QGroupBox* filterGroup = new QGroupBox("Filter", centralWidget);
     filterGroup->setLayout(new QVBoxLayout());
     filterGroup->layout()->addWidget(filterPanel);
-    filterGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
+    filterGroup->setStyleSheet("padding: 5px;");
 
     // 右侧：Effect 控制面板
     QVBoxLayout* effectLayout = new QVBoxLayout();
@@ -65,7 +65,7 @@ void SynthesizerUI::setupUI() {
     effectLayout->addWidget(effectGroup);
     QGroupBox* effectGroupBox = new QGroupBox("Effects", centralWidget);
     effectGroupBox->setLayout(effectLayout);
-    effectGroupBox->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
+    effectGroupBox->setStyleSheet("padding: 5px;");
 
     // 合并布局
     QVBoxLayout* rightPanelLayout = new QVBoxLayout();
