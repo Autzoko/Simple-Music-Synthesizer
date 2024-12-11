@@ -20,16 +20,23 @@ void OscillatorControlPanel::setupUI() {
     weightDial = new QDial(this);
     weightDial->setRange(0, 100);
     weightDial->setValue(100);
+    weightValueLabel = new QLabel("1.0", this);
+    weightValueLabel->setAlignment(Qt::AlignCenter);
+
     knobLayout->addWidget(weightLabel);
     knobLayout->addWidget(weightDial);
+    knobLayout->addWidget(weightValueLabel);
 
     // Detune旋钮
     QLabel* detuneLabel = new QLabel("Detune", this);
     detuneDial = new QDial(this);
     detuneDial->setRange(0, 100);
     detuneDial->setValue(0);
+    detuneValueLabel = new QLabel("0.0", this);
+    detuneValueLabel->setAlignment(Qt::AlignCenter);
     knobLayout->addWidget(detuneLabel);
     knobLayout->addWidget(detuneDial);
+    knobLayout->addWidget(detuneValueLabel);
 
     // 将旋钮布局添加到主布局
     mainLayout->addLayout(knobLayout);
@@ -102,5 +109,18 @@ void OscillatorControlPanel::setupConnections() {
     connect(detuneDial, &QDial::valueChanged, this, [this](int value) {
         double detune = value / 100.0; // 将值从 0-100 映射到 0.0-1.0
         emit detuneChanged(index, detune); // 发送自定义信号
+    });
+
+    connect(weightDial, &QDial::valueChanged, this, [this](int value) {
+        double weight = value / 100.0; // 显示值范围为 0.0 - 1.0
+        weightValueLabel->setText(QString::number(weight, 'f', 2)); // 格式化为小数点后两位
+        emit weightChanged(index, weight);
+    });
+
+    // 更新 Detune 的数值
+    connect(detuneDial, &QDial::valueChanged, this, [this](int value) {
+        double detune = value / 100.0; // 显示值范围为 0.0 - 1.0
+        detuneValueLabel->setText(QString::number(detune, 'f', 2)); // 格式化为小数点后两位
+        emit detuneChanged(index, detune);
     });
 }

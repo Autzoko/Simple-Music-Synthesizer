@@ -86,7 +86,7 @@ void SynthesizerUI::connectUI() {
     // Connect oscillator panels to Synthesizer
     for (int i = 0; i < oscillatorPanels.size(); ++i) {
         auto* panel = oscillatorPanels[i];
-        connect(panel, &OscillatorControlPanel::waveformChanged, this, [this, i](int index, int waveform) {
+        connect(panel, &OscillatorControlPanel::waveformChanged, this, [this, i](int index, int waveform) { 
             synthesizer->setOscillatorWaveform(index, static_cast<WaveformType>(waveform));
         });
         connect(panel, &OscillatorControlPanel::weightChanged, this, [this, i](int index, double weight) {

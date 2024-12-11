@@ -28,6 +28,9 @@ private:
     QDial* weightDial;
     QDial* detuneDial;
 
+    QLabel* weightValueLabel;
+    QLabel* detuneValueLabel;
+
     void setupUI();
     void setupConnections();
 };
