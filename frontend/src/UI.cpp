@@ -86,14 +86,14 @@ void SynthesizerUI::connectUI() {
     // Connect oscillator panels to Synthesizer
     for (int i = 0; i < oscillatorPanels.size(); ++i) {
         auto* panel = oscillatorPanels[i];
-        connect(panel, &OscillatorControlPanel::waveformChanged, this, [this, i](int waveform) {
-            synthesizer->setOscillatorWaveform(i, static_cast<WaveformType>(waveform));
+        connect(panel, &OscillatorControlPanel::waveformChanged, this, [this, i](int index, int waveform) {
+            synthesizer->setOscillatorWaveform(index, static_cast<WaveformType>(waveform));
         });
-        connect(panel, &OscillatorControlPanel::weightChanged, this, [this, i](double weight) {
-            synthesizer->setOscillatorWeight(i, weight);
+        connect(panel, &OscillatorControlPanel::weightChanged, this, [this, i](int index, double weight) {
+            synthesizer->setOscillatorWeight(index, weight);
         });
-        connect(panel, &OscillatorControlPanel::detuneChanged, this, [this, i](double detune) {
-            synthesizer->setOscillatorDetune(i, detune);
+        connect(panel, &OscillatorControlPanel::detuneChanged, this, [this, i](int index, double detune) {
+            synthesizer->setOscillatorDetune(index, detune);
         });
     }
 
@@ -108,7 +108,6 @@ void SynthesizerUI::keyPressEvent(QKeyEvent* event) {
         Note note = keyToNoteMapping[key];
         synthesizer->noteOn(note, 1.0);
         activeKeys.insert(key);
-        qDebug() << "Key " << event->text() << " Note " << note.getMainFrequency();
     }
 }
 

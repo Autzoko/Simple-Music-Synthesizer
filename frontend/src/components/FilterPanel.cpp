@@ -19,6 +19,7 @@ void FilterPanel::setupUI() {
     filterTypeComboBox->addItem("Low Pass");
     filterTypeComboBox->addItem("High Pass");
     filterTypeComboBox->addItem("Band Pass");
+    filterTypeComboBox->setCurrentIndex(0);
     layout->addWidget(typeLabel);
     layout->addWidget(filterTypeComboBox);
 
@@ -26,6 +27,7 @@ void FilterPanel::setupUI() {
     auto* cutoffLabel = new QLabel("Cutoff Frequency", this);
     cutoffDial = new QDial(this);
     cutoffDial->setRange(20, 20000); // Frequency range in Hz
+    cutoffDial->setValue(1000);
     layout->addWidget(cutoffLabel);
     layout->addWidget(cutoffDial);
 
@@ -33,6 +35,7 @@ void FilterPanel::setupUI() {
     auto* resonanceLabel = new QLabel("Resonance", this);
     resonanceDial = new QDial(this);
     resonanceDial->setRange(0, 100); // Resonance range (scaled)
+    resonanceDial->setValue(100);
     layout->addWidget(resonanceLabel);
     layout->addWidget(resonanceDial);
 

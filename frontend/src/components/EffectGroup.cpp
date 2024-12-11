@@ -115,13 +115,13 @@ void EffectGroup::onEffectParamChanged(const QString& effectName, const QString&
     auto effect = effectMap.value(effectName, nullptr);
     if (!effect) return;
 
-    double normalizedValue = value / 100.0; // Normalize 0-100 to 0.0-1.0
+    double normalizedValue = static_cast<double>(value) / 100.0; // Normalize 0-100 to 0.0-1.0
     if (effectName == "Chorus") {
         auto chorus = std::dynamic_pointer_cast<ChorusEffect>(effect);
         if (paramName == "Depth") {
-            chorus->setDepth(normalizedValue);
+            chorus->setDepth(normalizedValue / 10.0);
         } else if (paramName == "Rate") {
-            chorus->setRate(normalizedValue * 10.0); // Example scaling
+            chorus->setRate(normalizedValue * 5.0); // Example scaling
         }
     } else if (effectName == "Delay") {
         auto delay = std::dynamic_pointer_cast<DelayEffect>(effect);

@@ -19,6 +19,7 @@ void OscillatorControlPanel::setupUI() {
     QLabel* weightLabel = new QLabel("Weight", this);
     weightDial = new QDial(this);
     weightDial->setRange(0, 100);
+    weightDial->setValue(100);
     knobLayout->addWidget(weightLabel);
     knobLayout->addWidget(weightDial);
 
@@ -26,6 +27,7 @@ void OscillatorControlPanel::setupUI() {
     QLabel* detuneLabel = new QLabel("Detune", this);
     detuneDial = new QDial(this);
     detuneDial->setRange(0, 100);
+    detuneDial->setValue(0);
     knobLayout->addWidget(detuneLabel);
     knobLayout->addWidget(detuneDial);
 
@@ -37,6 +39,7 @@ void OscillatorControlPanel::setupUI() {
     waveformGroup = new QButtonGroup(this);
 
     QRadioButton* sineButton = new QRadioButton("Sine", this);
+    sineButton->setChecked(true);
     QRadioButton* squareButton = new QRadioButton("Square", this);
     QRadioButton* sawtoothButton = new QRadioButton("Sawtooth", this);
     QRadioButton* triangleButton = new QRadioButton("Triangle", this);

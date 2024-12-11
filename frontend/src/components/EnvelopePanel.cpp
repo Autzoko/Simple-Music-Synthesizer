@@ -16,6 +16,7 @@ void EnvelopePanel::setupUI() {
     auto* attackLabel = new QLabel("Attack", this);
     attackDial = new QDial(this);
     attackDial->setRange(0, 100);
+    attackDial->setValue(1);
     layout->addWidget(attackLabel);
     layout->addWidget(attackDial);
 
@@ -23,6 +24,7 @@ void EnvelopePanel::setupUI() {
     auto* decayLabel = new QLabel("Decay", this);
     decayDial = new QDial(this);
     decayDial->setRange(0, 100);
+    decayDial->setValue(10);
     layout->addWidget(decayLabel);
     layout->addWidget(decayDial);
 
@@ -30,6 +32,7 @@ void EnvelopePanel::setupUI() {
     auto* sustainLabel = new QLabel("Sustain", this);
     sustainDial = new QDial(this);
     sustainDial->setRange(0, 100);
+    sustainDial->setValue(70);
     layout->addWidget(sustainLabel);
     layout->addWidget(sustainDial);
 
@@ -37,6 +40,7 @@ void EnvelopePanel::setupUI() {
     auto* releaseLabel = new QLabel("Release", this);
     releaseDial = new QDial(this);
     releaseDial->setRange(0, 100);
+    releaseDial->setValue(10);
     layout->addWidget(releaseLabel);
     layout->addWidget(releaseDial);
 

@@ -2,13 +2,13 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
-#include <iostream>
 
 Synthesizer::Voice::Voice(unsigned int numOscillators, std::shared_ptr<EnvelopeGenerator> env, unsigned int sampleRate)
     : envelope(std::move(env)), active(false), mainFrequency(0.0) {
-        for (unsigned int i = 0; i < numOscillators; ++i) {
-            oscillators.emplace_back(WaveformType::SINE, 440.0, 1.0, 1.0, 0.0);
-        }
+        oscillators.emplace_back(WaveformType::SINE, 440.0, 1.0, 1.0, 0.0);
+        oscillators.emplace_back(WaveformType::SINE, 440.0, 0.2, 1.0, 0.0);
+        oscillators.emplace_back(WaveformType::SINE, 440.0, 0.1, 1.0, 0.0);
+        oscillators.emplace_back(WaveformType::SINE, 440.0, 0.05, 1.0, 0.0);
 }
 
 Synthesizer::Synthesizer(unsigned int sampleRate) : sampleRate(sampleRate), filter(nullptr) {
@@ -68,8 +68,7 @@ void Synthesizer::generateAudio(std::vector<double>& outputBuffer, unsigned int 
         for (auto& oscConfig : voice.oscillators) {
             std::vector<double> oscSamples = oscConfig.oscillator->generate(numFrames);
             for (size_t i = 0; i < numFrames; ++i) {
-                voiceBuffer[i] += oscSamples[i] * oscConfig.weight * envelopeSamples[i];
-                //printf("%f : %f\n", oscSamples[i], envelopeSamples[i]);
+                voiceBuffer[i] += (oscSamples[i] * oscConfig.weight * envelopeSamples[i]) * 0.25;
             }
         }
         
@@ -94,7 +93,6 @@ void Synthesizer::setOscillatorWaveform(size_t oscillatorIndex, WaveformType wav
 
     for (auto& voice : voices) {
         voice.oscillators[oscillatorIndex].oscillator->setWaveform(waveform);
-        std::cout << "Waveform Changed" << std::endl;
     }
 }
 

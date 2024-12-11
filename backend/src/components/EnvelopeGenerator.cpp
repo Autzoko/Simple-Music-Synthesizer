@@ -14,25 +14,21 @@ void EnvelopeGenerator::calculateSegmentLength() {
 
 
 void EnvelopeGenerator::setAttack(double attack) {
-    std::cout << "Attack Changed" << std::endl;
     this->attack = attack;
     calculateSegmentLength();
 }
 
 void EnvelopeGenerator::setDecay(double decay) {
-    std::cout << "Decay Changed" << std::endl;
     this->decay = decay;
     calculateSegmentLength();
 }
 
 void EnvelopeGenerator::setSustain(double sustain) {
-    std::cout << "Sustain Changed" << std::endl;
     this->sustain = sustain;
     calculateSegmentLength();
 }
 
 void EnvelopeGenerator::setRelease(double release) {
-    std::cout << "Release Changed" << std::endl;
     this->release = release;
     calculateSegmentLength();
 }

@@ -9,19 +9,16 @@ Filter::Filter(FilterType type, double cutoff, double resonance, unsigned int sa
 
 
 void Filter::setFilterType(FilterType type) {
-    std::cout << "Filter type changed" << std::endl;
     this->type = type;
     calculateCoefficients();
 }
 
 void Filter::setCutoff(double cutoff) {
-    std::cout << "Filter cutoff changed" << std::endl;
     this->cutoff = cutoff;
     calculateCoefficients();
 }
 
 void Filter::setResonance(double resonance) {
-    std::cout << "Filter resonance changed" << std::endl;
     this->resonance = resonance;
     calculateCoefficients();
 }
