@@ -36,7 +36,7 @@ public:
     void removeEffect(size_t index);
     std::shared_ptr<Effect> getEffect(size_t index);
 
-    std::shared_ptr<Effect> getEffect(unsigned int index);
+
 
 private:
     struct Voice {

@@ -94,6 +94,7 @@ void Synthesizer::setOscillatorWaveform(size_t oscillatorIndex, WaveformType wav
 
     for (auto& voice : voices) {
         voice.oscillators[oscillatorIndex].oscillator->setWaveform(waveform);
+        std::cout << "Waveform Changed" << std::endl;
     }
 }
 

@@ -1,23 +1,17 @@
-#include "SynthesizerUI.h"
-
 #include <QApplication>
-#include <QLocale>
-#include <QTranslator>
+#include "UI.h"
+#include "Synthesizer.h"
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
+int main(int argc, char* argv[]) {
+    try {
+        QApplication app(argc, argv);
+        
+        SynthesizerUI ui;
+        ui.show();
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        const QString baseName = "SynthesizerUI_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            a.installTranslator(&translator);
-            break;
-        }
+        return app.exec();
+    } catch (const std::exception& e) {
+        qCritical() << "Unhandled exception: " << e.what();
+        return -1;
     }
-    SynthesizerUI w;
-    w.show();
-    return a.exec();
 }
