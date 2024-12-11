@@ -1,21 +1,21 @@
 #include "UI.h"
 #include <iostream>
+#include <fstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 SynthesizerUI::SynthesizerUI(QWidget* parent)
     : QMainWindow(parent) {
     
     synthesizer = std::make_shared<Synthesizer>(44100);
+    try {
+        keyToNoteMapping = loadNotesFromFile("resources/midi_notes.json");
+        std::cout << "Notes loaded" << std::endl;
+    } catch (std::exception& e) {
+        std::cerr << "Error notes loading: " << e.what() << std::endl;
+    }
 
-    keyToNoteMapping[Qt::Key_A] = Note("A", 440.0, {440.0, 440.0, 440.0});
-    keyToNoteMapping[Qt::Key_W] = Note("W", 466.16, {466.16, 466.16, 466.16});
-    keyToNoteMapping[Qt::Key_S] = Note("S", 493.88, {493.88, 493.88, 493.88});
-    keyToNoteMapping[Qt::Key_D] = Note("D", 523.25, {523.25, 523.25, 523.25});
-    keyToNoteMapping[Qt::Key_R] = Note("R", 554.37, {554.0, 554.0, 554.0});
-    keyToNoteMapping[Qt::Key_F] = Note("F", 587.33, {587.0, 587.0, 587.0});
-    keyToNoteMapping[Qt::Key_T] = Note("T", 622.25, {622.0, 622.0, 622.0});
-    keyToNoteMapping[Qt::Key_G] = Note("G", 659.25, {659.0, 659.0, 659.0});
-    keyToNoteMapping[Qt::Key_H] = Note("H", 698.46, {698.0, 698.0, 698.0});
-    
     setupUI();
     connectUI();
 
@@ -31,38 +31,56 @@ SynthesizerUI::~SynthesizerUI() {
 }
 
 void SynthesizerUI::setupUI() {
-    centralWidget = new QWidget(this);
-    setCentralWidget(centralWidget);
+    QWidget* centralWidget = new QWidget(this);
+    QHBoxLayout* mainLayout = new QHBoxLayout(centralWidget);
 
-    mainLayout = new QVBoxLayout(centralWidget);
-
-    // Oscillator Panels
-    oscillatorPanelContainer = new QWidget(centralWidget);
-    oscillatorPanelLayout = new QVBoxLayout(oscillatorPanelContainer);
-
+    // 左侧：Oscillator 控制面板
+    QGridLayout* oscillatorLayout = new QGridLayout();
     for (int i = 0; i < 4; ++i) {
-        auto* panel = new OscillatorControlPanel(i, oscillatorPanelContainer);
+        auto panel = new OscillatorControlPanel(i, this);
         oscillatorPanels.append(panel);
-        oscillatorPanelLayout->addWidget(panel);
+        oscillatorLayout->addWidget(panel, i / 2, i % 2); // 田字格布局
     }
+    QGroupBox* oscillatorGroup = new QGroupBox("Oscillators", centralWidget);
+    oscillatorGroup->setLayout(oscillatorLayout);
+    oscillatorGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
 
-    oscillatorPanelContainer->setLayout(oscillatorPanelLayout);
-    mainLayout->addWidget(oscillatorPanelContainer);
+    // 右上角：Envelope Panel
+    envelopePanel = new EnvelopePanel(synthesizer, this);
+    QGroupBox* envelopeGroup = new QGroupBox("Envelope", centralWidget);
+    envelopeGroup->setLayout(new QVBoxLayout());
+    envelopeGroup->layout()->addWidget(envelopePanel);
+    envelopeGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
 
-    // Envelope Panel
-    envelopePanel = new EnvelopePanel(synthesizer, centralWidget);
-    mainLayout->addWidget(envelopePanel);
+    // 右下角：Filter Panel
+    filterPanel = new FilterPanel(synthesizer, this);
+    QGroupBox* filterGroup = new QGroupBox("Filter", centralWidget);
+    filterGroup->setLayout(new QVBoxLayout());
+    filterGroup->layout()->addWidget(filterPanel);
+    filterGroup->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
 
-    // Filter Panel
-    filterPanel = new FilterPanel(synthesizer, centralWidget);
-    mainLayout->addWidget(filterPanel);
+    // 右侧：Effect 控制面板
+    QVBoxLayout* effectLayout = new QVBoxLayout();
+    effectGroup = new EffectGroup(synthesizer, this);
+    effectLayout->addWidget(effectGroup);
+    QGroupBox* effectGroupBox = new QGroupBox("Effects", centralWidget);
+    effectGroupBox->setLayout(effectLayout);
+    effectGroupBox->setStyleSheet("border: 1px solid lightgray; padding: 5px;");
 
-    // Effect Group
-    effectGroup = new EffectGroup(synthesizer, centralWidget);
-    mainLayout->addWidget(effectGroup);
+    // 合并布局
+    QVBoxLayout* rightPanelLayout = new QVBoxLayout();
+    rightPanelLayout->addWidget(envelopeGroup, 1);
+    rightPanelLayout->addWidget(filterGroup, 1);
+
+    mainLayout->addWidget(oscillatorGroup, 2);
+    mainLayout->addLayout(rightPanelLayout, 1);
+    mainLayout->addWidget(effectGroupBox, 1);
 
     centralWidget->setLayout(mainLayout);
+    setCentralWidget(centralWidget);
 }
+
+
 
 void SynthesizerUI::connectUI() {
     // Connect oscillator panels to Synthesizer
@@ -103,4 +121,29 @@ void SynthesizerUI::keyReleaseEvent(QKeyEvent* event) {
         synthesizer->noteOff(note);
         activeKeys.remove(key);
     }
+}
+
+std::map<int, Note> SynthesizerUI::loadNotesFromFile(const std::string& filePath) {
+    std::map<int, Note> keyToNoteMapping;
+
+    // 打开 JSON 文件
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        throw std::runtime_error("Failed to open JSON file: " + filePath);
+    }
+
+    // 解析 JSON 数据
+    json jsonData;
+    file >> jsonData;
+
+    for (const auto& [key, value] : jsonData.items()) {
+        std::string name = value["name"];
+        double mainFrequency = value["mainFrequency"];
+        std::vector<double> subFrequencies = value["subFrequencies"].get<std::vector<double>>();
+
+        int noteKey = std::stoi(key);
+        keyToNoteMapping[noteKey] = Note(name, mainFrequency, subFrequencies);
+    }
+
+    return keyToNoteMapping;
 }

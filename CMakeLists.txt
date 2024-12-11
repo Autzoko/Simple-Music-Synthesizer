@@ -12,3 +12,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # 添加子目录
 add_subdirectory(backend)
 add_subdirectory(frontend)
+
+configure_file(${CMAKE_SOURCE_DIR}/resources/midi_notes.json ${CMAKE_BINARY_DIR}/resources/midi_notes.json COPYONLY)
+

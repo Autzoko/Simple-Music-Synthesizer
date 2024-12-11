@@ -4,7 +4,12 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QSet>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <memory>
+#include <map>
 #include "OscillatorControlPanel.h"
 #include "EnvelopePanel.h"
 #include "EffectGroup.h"
@@ -39,7 +44,7 @@ private:
     FilterPanel* filterPanel;
     EffectGroup* effectGroup;
 
-    QMap<int, Note> keyToNoteMapping;
+    std::map<int, Note> keyToNoteMapping;
 
     AudioOutput* audioPlayer;
 
@@ -47,5 +52,7 @@ private:
     
     void setupUI();
     void connectUI();
+
+    std::map<int, Note> loadNotesFromFile(const std::string& filePath);
 
 };

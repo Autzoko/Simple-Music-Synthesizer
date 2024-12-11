@@ -2,22 +2,40 @@
 
 EffectGroup::EffectGroup(std::shared_ptr<Synthesizer> synthesizer, QWidget* parent)
     : QWidget(parent), synthesizer(std::move(synthesizer)) {
-    mainLayout = new QVBoxLayout(this);
+    auto* gridLayout = new QGridLayout(this);
 
-    // Add individual effect UI components
-    addEffectUI("Chorus", {"Depth", "Rate"});
-    addEffectUI("Delay", {"DelayTime", "Feedback", "Mix"});
-    addEffectUI("Distortion", {"Threshold"});
-    addEffectUI("Equilizer", {"Band1Gain", "Band2Gain", "Band3Gain"}); // Example: 3 bands
-    addEffectUI("PitchShifter", {"PitchFactor"});
-    addEffectUI("Reverb", {"Decay", "Mix"});
-    addEffectUI("Tremolo", {"Depth", "Rate"});
+    // Add individual effect UI components to the grid layout
+    addEffectUI("Chorus", {"Depth", "Rate"}, 0, 0);
+    addEffectUI("Delay", {"DelayTime", "Feedback", "Mix"}, 0, 1);
+    addEffectUI("Distortion", {"Threshold"}, 1, 0);
+    addEffectUI("Equilizer", {"Band1Gain", "Band2Gain", "Band3Gain"}, 1, 1);
+    addEffectUI("PitchShifter", {"PitchFactor"}, 2, 0);
+    addEffectUI("Reverb", {"Decay", "Mix"}, 2, 1);
+    addEffectUI("Tremolo", {"Depth", "Rate"}, 3, 0);
 
-    setLayout(mainLayout);
+    setLayout(gridLayout);
+
+    // Optional: Add styling
+    setStyleSheet(R"(
+        QGroupBox {
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        QLabel {
+            font-size: 12px;
+            color: #333333;
+        }
+        QSlider {
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            height: 20px;
+        }
+    )");
 }
 
-void EffectGroup::addEffectUI(const QString& effectName, const std::vector<QString>& paramNames) {
-    // Create a group for this effect
+void EffectGroup::addEffectUI(const QString& effectName, const std::vector<QString>& paramNames, int row, int col) {
+    // Create a group box for this effect
     QGroupBox* effectBox = new QGroupBox(effectName, this);
     QVBoxLayout* effectLayout = new QVBoxLayout(effectBox);
 
@@ -45,7 +63,11 @@ void EffectGroup::addEffectUI(const QString& effectName, const std::vector<QStri
         onEffectToggled(effectName, enabled);
     });
 
-    mainLayout->addWidget(effectBox);
+    // Add the effect box to the grid layout
+    auto* layout = qobject_cast<QGridLayout*>(this->layout());
+    if (layout) {
+        layout->addWidget(effectBox, row, col);
+    }
 }
 
 void EffectGroup::onEffectToggled(const QString& effectName, bool enabled) {

@@ -9,13 +9,33 @@ OscillatorControlPanel::OscillatorControlPanel(int index, QWidget* parent)
 OscillatorControlPanel::~OscillatorControlPanel() = default;
 
 void OscillatorControlPanel::setupUI() {
+    // 主布局
     auto* mainLayout = new QVBoxLayout(this);
-    auto* waveformLayout = new QHBoxLayout();
-    auto* weightLayout = new QHBoxLayout();
-    auto* detuneLayout = new QHBoxLayout();
 
-    // 波形选择
+    // 旋钮布局
+    auto* knobLayout = new QHBoxLayout();
+
+    // 权重旋钮
+    QLabel* weightLabel = new QLabel("Weight", this);
+    weightDial = new QDial(this);
+    weightDial->setRange(0, 100);
+    knobLayout->addWidget(weightLabel);
+    knobLayout->addWidget(weightDial);
+
+    // Detune旋钮
+    QLabel* detuneLabel = new QLabel("Detune", this);
+    detuneDial = new QDial(this);
+    detuneDial->setRange(0, 100);
+    knobLayout->addWidget(detuneLabel);
+    knobLayout->addWidget(detuneDial);
+
+    // 将旋钮布局添加到主布局
+    mainLayout->addLayout(knobLayout);
+
+    // 波形选择布局
+    auto* waveformLayout = new QVBoxLayout();
     waveformGroup = new QButtonGroup(this);
+
     QRadioButton* sineButton = new QRadioButton("Sine", this);
     QRadioButton* squareButton = new QRadioButton("Square", this);
     QRadioButton* sawtoothButton = new QRadioButton("Sawtooth", this);
@@ -33,24 +53,32 @@ void OscillatorControlPanel::setupUI() {
     waveformLayout->addWidget(sawtoothButton);
     waveformLayout->addWidget(triangleButton);
     waveformLayout->addWidget(noiseButton);
+
+    // 将波形选择布局添加到主布局
     mainLayout->addLayout(waveformLayout);
 
-    // 权重旋钮
-    QLabel* weightLabel = new QLabel("Weight", this);
-    weightDial = new QDial(this);
-    weightDial->setRange(0, 100);
-    weightLayout->addWidget(weightLabel);
-    weightLayout->addWidget(weightDial);
-    mainLayout->addLayout(weightLayout);
+    // 设置面板边框样式
+    setStyleSheet(R"(
+        QWidget {
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        QLabel {
+            font-size: 12px;
+            color: #333333;
+        }
+        QDial {
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            border-radius: 15px;
+        }
+    )");
 
-    // Detune旋钮
-    QLabel* detuneLabel = new QLabel("Detune", this);
-    detuneDial = new QDial(this);
-    detuneDial->setRange(0, 100);
-    detuneLayout->addWidget(detuneLabel);
-    detuneLayout->addWidget(detuneDial);
-    mainLayout->addLayout(detuneLayout);
+    setLayout(mainLayout);
 }
+
 
 void OscillatorControlPanel::setupConnections() {
     // Connect waveform group button signals to waveformChanged signal

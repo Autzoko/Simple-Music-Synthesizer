@@ -31,7 +31,7 @@ private:
     QVBoxLayout* mainLayout;
     QMap<QString, std::shared_ptr<Effect>> effectMap;
 
-    void addEffectUI(const QString& effectName, const std::vector<QString>& paramNames);
+    void addEffectUI(const QString& effectName, const std::vector<QString>& paramNames, int row, int col);
 
 private slots:
     void onEffectToggled(const QString& effectName, bool enabled);
