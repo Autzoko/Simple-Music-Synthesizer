@@ -1,0 +1,10 @@
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/backend/CMakeFiles/backend.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/backend/CMakeFiles/edit_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/backend/CMakeFiles/rebuild_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/CMakeFiles/frontend.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/CMakeFiles/edit_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/CMakeFiles/rebuild_cache.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/CMakeFiles/frontend_autogen_timestamp_deps.dir
+C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/CMakeFiles/frontend_autogen.dir

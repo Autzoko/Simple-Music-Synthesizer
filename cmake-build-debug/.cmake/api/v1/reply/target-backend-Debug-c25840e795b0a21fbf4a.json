@@ -1,0 +1,636 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "backend/libbackend.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"add_definitions",
+			"include_directories",
+			"target_include_directories",
+			"target_compile_features"
+		],
+		"files" : 
+		[
+			"backend/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 50,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 48,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 68,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : " -O3 -g -O0 -DDEBUG -g -fdiagnostics-color=always"
+				},
+				{
+					"fragment" : "-std=gnu++20"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_ALSA=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_ASIO=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_DS=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_OSS=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_WASAPI=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/components"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/components/effects"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/utils"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/src/common"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/src/os/win"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					6
+				],
+				"standard" : "20"
+			},
+			"sourceIndexes" : 
+			[
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fdiagnostics-color=always"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_ALSA=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_ASIO=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_DS=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_OSS=0"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "PA_USE_WASAPI=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/components"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/components/effects"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/include/utils"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/src/common"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "C:/Users/llt02/Desktop/Synthesizer/backend/lib/PortAudio/src/os/win"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53
+			]
+		}
+	],
+	"id" : "backend::@e17dcb4e28158375c849",
+	"name" : "backend",
+	"nameOnDisk" : "libbackend.a",
+	"paths" : 
+	{
+		"build" : "backend",
+		"source" : "backend"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/Synthesizer.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/Effect.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/EnvelopeGenerator.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/Filter.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/LFO.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/Mixer.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/Oscillator.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Chorus.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Delay.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Distortion.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Equilizer.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/PitchShifter.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Reverb.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/components/effects/Tremolo.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/utils/AudioOutput.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/utils/Functional.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/utils/Key.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "backend/include/utils/Note.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/Synthesizer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/EnvelopeGenerator.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/Filter.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/LFO.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/Mixer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/Oscillator.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Chorus.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Delay.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Distortion.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Equilizer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/PitchShifter.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Reverb.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/components/effects/Tremolo.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/utils/AudioOutput.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/utils/Functional.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/utils/Key.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "backend/src/utils/Note.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_allocation.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_converters.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_cpuload.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_debugprint.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_dither.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_front.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_process.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_ringbuffer.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_stream.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/common/pa_trace.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/hostapi/dsound/pa_win_ds.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/hostapi/dsound/pa_win_ds_dynlink.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/hostapi/wasapi/pa_win_wasapi.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_win_coinitialize.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_win_hostapis.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_win_util.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_win_waveformat.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_win_wdmks_utils.c",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "backend/lib/PortAudio/src/os/win/pa_x86_plain_converters.c",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

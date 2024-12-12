@@ -1,0 +1,141 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "backend",
+					"jsonFile" : "directory-backend-Debug-1757027d88c457ad9760.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "backend",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "frontend",
+					"jsonFile" : "directory-frontend-Debug-2ec6fca2583b1affd23c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 2,
+					"source" : "frontend",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Synthesizer"
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "backend",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "frontend",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "backend::@e17dcb4e28158375c849",
+					"jsonFile" : "target-backend-Debug-c25840e795b0a21fbf4a.json",
+					"name" : "backend",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "frontend::@73e8a6b9a3e1c0d3809b",
+					"jsonFile" : "target-frontend-Debug-b7babfd5ca39f9a95028.json",
+					"name" : "frontend",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "frontend_autogen::@73e8a6b9a3e1c0d3809b",
+					"jsonFile" : "target-frontend_autogen-Debug-00e3e2c2649def4c6969.json",
+					"name" : "frontend_autogen",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "frontend_autogen_timestamp_deps::@73e8a6b9a3e1c0d3809b",
+					"jsonFile" : "target-frontend_autogen_timestamp_deps-Debug-5692ded087151e9ff822.json",
+					"name" : "frontend_autogen_timestamp_deps",
+					"projectIndex" : 2
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug",
+		"source" : "C:/Users/llt02/Desktop/Synthesizer"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
