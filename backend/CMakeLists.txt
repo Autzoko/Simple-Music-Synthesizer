@@ -45,6 +45,10 @@ file(GLOB PORTAUDIO_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/src/hostapi/wasapi/*.c
 )
 
+file(GLOB RTMIDI_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/RtMidi/*.cpp
+)
+
 add_definitions(-DPA_USE_DS=1 -DPA_USE_WASAPI=1 -DPA_USE_ASIO=0 -DPA_USE_ALSA=0 -DPA_USE_OSS=0)
 
 add_library(
@@ -52,6 +56,7 @@ add_library(
     ${SYNTH_BACKEND_HEADERS}
     ${SYNTH_BACKEND_SOURCES}
     ${PORTAUDIO_SOURCES}
+    ${RTMIDI_SOURCES}
 )
 
 target_include_directories(
@@ -63,6 +68,7 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/src/common
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/PortAudio/src/os/win
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/RtMidi
 )
 
 target_compile_features(backend PUBLIC cxx_std_20)
@@ -71,7 +77,7 @@ target_compile_features(backend PUBLIC cxx_std_20)
 
 if (WIN32)
     target_link_libraries(backend winmm dsound -lwinpthread)
-    #add_definitions(-D__WINDOWS_DS__)
+    add_definitions(-D__WINDOWS_MM__)
 elseif (APPLE)
     find_library(COREAUDIO_LIBRARY CoreAudio)
     find_library(COREFOUNDATION_LIBRARY CoreFoundation)

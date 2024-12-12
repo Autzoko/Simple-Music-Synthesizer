@@ -6,7 +6,7 @@
 using json = nlohmann::json;
 
 SynthesizerUI::SynthesizerUI(QWidget* parent)
-    : QMainWindow(parent) {
+    : QMainWindow(parent), midiHandler(std::make_unique<MIDIHandler>()) {
     
     synthesizer = std::make_shared<Synthesizer>(44100);
     try {
@@ -21,6 +21,7 @@ SynthesizerUI::SynthesizerUI(QWidget* parent)
 
     audioPlayer = new AudioOutput(*synthesizer);
     audioPlayer->start();
+    setupMIDI();
 }
 
 SynthesizerUI::~SynthesizerUI() {
@@ -145,4 +146,18 @@ std::map<int, Note> SynthesizerUI::loadNotesFromFile(const std::string& filePath
     }
 
     return keyToNoteMapping;
+}
+
+void SynthesizerUI::setupMIDI() {
+    midiHandler->setNoteOnCallback([this](int note, double velocity){
+        Note n = keyToNoteMapping[note];
+        synthesizer->noteOn(n, velocity);
+    });
+
+    midiHandler->setNoteOffCallback([this](int note) {
+        Note n = keyToNoteMapping[note];
+        synthesizer->noteOff(n);
+    });
+
+    midiHandler->start();
 }

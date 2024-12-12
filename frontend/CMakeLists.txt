@@ -41,4 +41,5 @@ target_include_directories(frontend PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/components
     ${CMAKE_SOURCE_DIR}/backend/include
     ${CMAKE_SOURCE_DIR}/backend/lib/PortAudio/include
+    ${CMAKE_SOURCE_DIR}/backend/lib/RtMidi
 )

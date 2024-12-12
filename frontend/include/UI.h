@@ -17,6 +17,7 @@
 #include "Synthesizer.h"
 #include "Note.h"
 #include "AudioOutput.h"
+#include "MIDIHandler.h"
 
 class SynthesizerUI : public QMainWindow {
     Q_OBJECT
@@ -49,9 +50,12 @@ private:
     AudioOutput* audioPlayer;
 
     QSet<int> activeKeys;
+
+    std::unique_ptr<MIDIHandler> midiHandler;
     
     void setupUI();
     void connectUI();
+    void setupMIDI();
 
     std::map<int, Note> loadNotesFromFile(const std::string& filePath);
 
