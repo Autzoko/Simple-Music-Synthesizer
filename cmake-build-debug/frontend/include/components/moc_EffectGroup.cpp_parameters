@@ -1,6 +1,0 @@
--IC:/Users/llt02/Desktop/Synthesizer/frontend
--IC:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend
--DWIN32
--o
-C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/include/components/moc_EffectGroup.cpp
-C:/Users/llt02/Desktop/Synthesizer/frontend/include/components/EffectGroup.h

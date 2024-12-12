@@ -1,5 +1,0 @@
-set(__QT_DEPLOY_TARGET_backend_FILE C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/backend/libbackend.a)
-set(__QT_DEPLOY_TARGET_backend_TYPE STATIC_LIBRARY)
-set(__QT_DEPLOY_TARGET_frontend_FILE C:/Users/llt02/Desktop/Synthesizer/cmake-build-debug/frontend/frontend.exe)
-set(__QT_DEPLOY_TARGET_frontend_TYPE EXECUTABLE)
-set(__QT_DEPLOY_TARGET_frontend_RUNTIME_DLLS X:/Softwares/6.8.1/mingw_64/bin/Qt6Widgets.dll;X:/Softwares/6.8.1/mingw_64/bin/Qt6Gui.dll;X:/Softwares/6.8.1/mingw_64/bin/Qt6Core.dll)
